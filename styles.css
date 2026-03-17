@@ -450,7 +450,6 @@ input, textarea, select { font-family: inherit; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
 }
 .detail-list { list-style: none; margin: 1.2rem 0 1.8rem; }
 .detail-list li {
@@ -1268,14 +1267,14 @@ input, textarea, select { font-family: inherit; }
   height: auto;
   border-radius: var(--radius);
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  background: white;
+  background: rgb(244, 188, 124);
   padding: 1.2rem;
   box-sizing: border-box;
 }
 
 /* Badge debajo y centrado */
 .hero-product-badge {
-  display: inline-block;
+  display: grid;
   margin: 1.5rem auto 0;
   background: var(--accent);
   color: var(--dark);
@@ -1287,4 +1286,5 @@ input, textarea, select { font-family: inherit; }
   box-shadow: 0 6px 20px rgba(255,209,102,0.5);
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
