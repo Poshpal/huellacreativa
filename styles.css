@@ -226,7 +226,7 @@ input, textarea, select { font-family: inherit; }
 /* ---- HERO ---- */
 .hero {
   min-height: 100vh;
-  background: var(--gradient-hero);
+  background: var(--gradient-test);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -1267,7 +1267,7 @@ input, textarea, select { font-family: inherit; }
   height: auto;
   border-radius: var(--radius);
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  background: rgb(244, 188, 124);
+  background: rgb(124, 126, 244);
   padding: 1.2rem;
   box-sizing: border-box;
 }
