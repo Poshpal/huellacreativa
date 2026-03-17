@@ -1267,7 +1267,8 @@ input, textarea, select { font-family: inherit; }
   height: auto;
   border-radius: var(--radius);
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  background: rgb(124, 126, 244);
+  /* gradient que contraste con el fondo */
+  background: var(--gradient-hero);
   padding: 1.2rem;
   box-sizing: border-box;
 }
