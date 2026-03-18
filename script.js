@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    /* =============================================
      7. FORM VALIDATION & SUBMIT (FIXED FOR GITHUB)
-  ============================================= 
+  ============================================= */
   const form       = document.getElementById('orderForm');
   const submitBtn  = document.getElementById('submitBtn');
   const formSucc   = document.getElementById('formSuccess');
@@ -246,10 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return valid;
   }
-*/
+
  /* =============================================
      7. FORM VALIDATION & SUBMIT
-  ============================================= */
+  ============================================= 
   const form       = document.getElementById('orderForm');
   const submitBtn  = document.getElementById('submitBtn');
   const btnText    = document.getElementById('btnText');

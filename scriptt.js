@@ -135,9 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  /* =============================================
-     7. FORM VALIDATION & SUBMIT (FIXED FOR GITHUB)
-  ============================================= */
   const form       = document.getElementById('orderForm');
   const submitBtn  = document.getElementById('submitBtn');
   const formSucc   = document.getElementById('formSuccess');
