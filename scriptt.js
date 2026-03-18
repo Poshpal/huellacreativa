@@ -1,6 +1,6 @@
 /* =============================================
    HUELLA CREATIVA – PetPop
-   script.js
+   script.js (Versión optimizada para Producción/GitHub Pages)
    ============================================= */
 
 'use strict';
@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoPlay;
 
   function goTo(index) {
+    if (!track || cards.length === 0) return;
     current = index;
     const cardWidth = cards[0].offsetWidth + 24; // gap = 24px
     track.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
@@ -117,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   function startAutoPlay() {
+    if (!track) return;
     autoPlay = setInterval(() => {
       goTo((current + 1) % cards.length);
     }, 4500);
@@ -124,15 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
   startAutoPlay();
 
   // Sync dots on manual scroll
-  track.addEventListener('scroll', () => {
-    const cardWidth = cards[0].offsetWidth + 24;
-    const idx = Math.round(track.scrollLeft / cardWidth);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    current = idx;
-  }, { passive: true });
+  if (track) {
+    track.addEventListener('scroll', () => {
+      const cardWidth = cards[0].offsetWidth + 24;
+      const idx = Math.round(track.scrollLeft / cardWidth);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      current = idx;
+    }, { passive: true });
+  }
 
-
-   /* =============================================
+  /* =============================================
      7. FORM VALIDATION & SUBMIT (FIXED FOR GITHUB)
   ============================================= */
   const form       = document.getElementById('orderForm');
@@ -248,175 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =============================================
-     7. FORM VALIDATION & SUBMIT
-  ============================================= 
-  const form       = document.getElementById('orderForm');
-  const submitBtn  = document.getElementById('submitBtn');
-  const btnText    = document.getElementById('btnText');
-  const btnLoader  = document.getElementById('btnLoader');
-  const formSucc   = document.getElementById('formSuccess');
-
-  // Real-time clear errors on input
-  form.querySelectorAll('input, select, textarea').forEach(field => {
-    field.addEventListener('input', () => clearError(field));
-    field.addEventListener('change', () => clearError(field));
-  });
-
-  function clearError(field) {
-    field.classList.remove('error');
-    const errEl = document.getElementById(`err-${field.name}`);
-    if (errEl) errEl.textContent = '';
-  }
-
-  function showError(field, msg) {
-    field.classList.add('error');
-    const errEl = document.getElementById(`err-${field.name}`);
-    if (errEl) errEl.textContent = msg;
-  }
-
-  function validateForm() {
-    let valid = true;
-    const ownerName = document.getElementById('ownerName');
-    const phone     = document.getElementById('phone');
-    const petName   = document.getElementById('petName');
-    const petType   = document.getElementById('petType');
-    const accept    = document.getElementById('accept');
-
-    if (!ownerName.value.trim()) {
-      showError(ownerName, 'Por favor ingresá tu nombre.');
-      valid = false;
-    }
-    if (!phone.value.trim()) {
-      showError(phone, 'Ingresá un número de contacto.');
-      valid = false;
-    }
-    if (!petName.value.trim()) {
-      showError(petName, 'El nombre de tu mascota es requerido.');
-      valid = false;
-    }
-    if (!petType.value) {
-      showError(petType, 'Seleccioná el tipo de mascota.');
-      valid = false;
-    }
-    if (!accept.checked) {
-      accept.style.outline = '2px solid #e74c3c';
-      valid = false;
-    } else {
-      accept.style.outline = '';
-    }
-    return valid;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-        form.style.animation = 'none';
-        void form.offsetWidth;
-        form.style.animation = 'shake .4s ease';
-        return;
-    }
-
-    // 1. Mostrar estado de carga en el botón
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-
-    // 2. Preparar el mensaje de WhatsApp
-    const ownerName = document.getElementById('ownerName').value.trim();
-    const phone     = document.getElementById('phone').value.trim();
-    const petName   = document.getElementById('petName').value.trim();
-    const petType   = document.getElementById('petType').value;
-    const petBreed  = document.getElementById('petBreed').value.trim();
-    const petAge    = document.getElementById('petAge').value.trim();
-    const message   = document.getElementById('message').value.trim();
-
-    const petTypeLabels = { gato: '🐱 Gato', perro: '🐕 Perro', otro: '🐾 Otro' };
-
-    const waMsg = encodeURIComponent(
-      `¡Hola Huella Creativa! 🐾 Quiero pedir un PetPop personalizado:\n\n` +
-      `👤 Nombre: ${ownerName}\n` +
-      `📱 Teléfono: ${phone}\n` +
-      `🐾 Mascota: ${petName}\n` +
-      `🐾 Tipo: ${petTypeLabels[petType] || petType}\n` +
-      (petBreed ? `🔖 Raza: ${petBreed}\n` : '') +
-      (petAge   ? `📅 Edad: ${petAge}\n` : '') +
-      (message  ? `\n💬 Mensaje:\n${message}` : '')
-    );
-
-    // 3. Pequeño retraso para que el usuario vea la animación de "Enviando"
-    // Pero sin usar setTimeout anidado para no perder el permiso del navegador
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // 4. CAMBIO CLAVE: Usar location.href en lugar de window.open
-    // Esto evita que el bloqueador de pop-ups detenga la acción
-    const whatsappUrl = `https://wa.me/5491100000000?text=${waMsg}`;
-    
-    // Mostramos el éxito en la web
-    submitBtn.classList.remove('loading');
-    form.style.display = 'none';
-    formSucc.classList.add('visible');
-
-    // Redirigimos a WhatsApp
-    window.location.assign(whatsappUrl);
-});
-
-
-  /*
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateForm()) {
-      // Shake animation on invalid
-      form.style.animation = 'none';
-      void form.offsetWidth;
-      form.style.animation = 'shake .4s ease';
-      return;
-    }
-
-    // Simulate loading
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-
-    await sleep(1800);
-
-    // Prepare WhatsApp message
-    const ownerName = document.getElementById('ownerName').value.trim();
-    const phone     = document.getElementById('phone').value.trim();
-    const petName   = document.getElementById('petName').value.trim();
-    const petType   = document.getElementById('petType').value;
-    const petBreed  = document.getElementById('petBreed').value.trim();
-    const petAge    = document.getElementById('petAge').value.trim();
-    const message   = document.getElementById('message').value.trim();
-
-    const petTypeLabels = { gato: '🐱 Gato', perro: '🐕 Perro', otro: '🐾 Otro' };
-
-    const waMsg = encodeURIComponent(
-      `¡Hola Huella Creativa! 🐾 Quiero pedir un PetPop personalizado:\n\n` +
-      `👤 Nombre: ${ownerName}\n` +
-      `📱 Teléfono: ${phone}\n` +
-      `🐾 Mascota: ${petName}\n` +
-      `🐾 Tipo: ${petTypeLabels[petType] || petType}\n` +
-      (petBreed ? `🔖 Raza: ${petBreed}\n` : '') +
-      (petAge   ? `📅 Edad: ${petAge}\n` : '') +
-      (message  ? `\n💬 Mensaje:\n${message}` : '')
-    );
-
-    submitBtn.classList.remove('loading');
-
-    // Show success
-    form.style.display = 'none';
-    formSucc.classList.add('visible');
-
-    // Open WhatsApp after short delay
-    setTimeout(() => {
-      window.open(`https://wa.me/5219811683822?text=${waMsg}`, '_blank');
-    }, 800);
-  });
-
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  /* =============================================
      8. GALLERY CARD 3D TILT
   ============================================= */
   document.querySelectorAll('.gallery-card').forEach(card => {
@@ -468,9 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =============================================
-     10. COUNTER ANIMATION (hero stats if numeric)
+     10. CURSOR PAW TRAIL (Desktop only)
   ============================================= */
-  // Animated paw-trail on cursor (desktop only)
   if (window.matchMedia('(hover: hover)').matches) {
     let lastPaw = 0;
     document.addEventListener('mousemove', (e) => {
@@ -511,27 +344,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =============================================
-     12. INJECT DYNAMIC KEYFRAMES
+     12. BOX MOCKUP interactive rotation
   ============================================= */
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = `
-    @keyframes particleFly {
-      0%   { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-40px) scale(.3) rotate(${Math.random() * 60 - 30}deg); }
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%       { transform: translateX(-8px); }
-      40%       { transform: translateX(8px); }
-      60%       { transform: translateX(-6px); }
-      80%       { transform: translateX(6px); }
-    }
-    @keyframes pulse-btn {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.05); }
-    }
-  `;
-  document.head.appendChild(styleSheet);
+  const heroVisual = document.querySelector('.hero-visual');
+  const boxMockup  = document.querySelector('.hero-product-image');
+
+  if (heroVisual && boxMockup) {
+    heroVisual.addEventListener('mousemove', (e) => {
+      const rect = heroVisual.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+      const y = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+      boxMockup.style.transform = `
+        perspective(600px)
+        rotateY(${x * 15}deg)
+        rotateX(${-y * 10}deg)
+        translateY(-18px)
+      `;
+    });
+    heroVisual.addEventListener('mouseleave', () => {
+      boxMockup.style.transform = '';
+      boxMockup.style.animation = 'float 3.5s ease-in-out infinite';
+    });
+    heroVisual.addEventListener('mouseenter', () => {
+      boxMockup.style.animation = 'none';
+    });
+  }
 
   /* =============================================
      13. ACTIVE NAV LINK on scroll
@@ -557,53 +394,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add active-link style
   const activeLinkStyle = document.createElement('style');
-  activeLinkStyle.textContent = `.nav-link.active-link { color: var(--primary) !important; }
-  .nav-link.active-link::after { width: 100% !important; }`;
+  activeLinkStyle.textContent = `
+    .nav-link.active-link { color: var(--primary) !important; }
+    .nav-link.active-link::after { width: 100% !important; }
+    @keyframes particleFly {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-40px) scale(.3) rotate(${Math.random() * 60 - 30}deg); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-8px); }
+      40%       { transform: translateX(8px); }
+      60%       { transform: translateX(-6px); }
+      80%       { transform: translateX(6px); }
+    }
+    @keyframes pulse-btn {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.05); }
+    }
+  `;
   document.head.appendChild(activeLinkStyle);
 
-  /* =============================================
-     14. BOX MOCKUP interactive rotation on hero
-  ============================================= */
-  const heroVisual = document.querySelector('.hero-visual');
-  const boxMockup  = document.querySelector('.box-mockup');
-
-  if (heroVisual && boxMockup) {
-    heroVisual.addEventListener('mousemove', (e) => {
-      const rect = heroVisual.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
-      const y = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
-      boxMockup.style.transform = `
-        perspective(600px)
-        rotateY(${x * 15}deg)
-        rotateX(${-y * 10}deg)
-        translateY(-18px)
-      `;
-    });
-    heroVisual.addEventListener('mouseleave', () => {
-      boxMockup.style.transform = '';
-      boxMockup.style.animation = 'float 3.5s ease-in-out infinite';
-    });
-    heroVisual.addEventListener('mouseenter', () => {
-      boxMockup.style.animation = 'none';
-    });
-  }
-
-  /* =============================================
-     15. LAZY IMAGE placeholder (future-proof)
-  ============================================= */
-  document.querySelectorAll('img[data-src]').forEach(img => {
-    const imgObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          img.src = img.dataset.src;
-          imgObserver.unobserve(img);
-        }
-      });
-    });
-    imgObserver.observe(img);
-  });
-
-  console.log('%c🐾 Huella Creativa – PetPop', 'color:#FF6B35;font-size:1.2rem;font-weight:bold;');
-  console.log('%cHecho con ❤️ para los amantes de las mascotas', 'color:#4ECDC4;font-size:.9rem;');
+  console.log('%c🐾 Huella Creativa – PetPop Online', 'color:#FF6B35;font-size:1.2rem;font-weight:bold;');
 
 });
