@@ -104,9 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoPlay;
 
   function goTo(index) {
-    if (!track || cards.length === 0) return;
+    if (!track || !cards || cards.length === 0) return;
     current = index;
-    const cardWidth = cards[0].offsetWidth + 24; // gap = 24px
+    const firstCard = cards[0];
+    if (!firstCard) return;
+    const cardWidth = firstCard.offsetWidth + 24; // gap = 24px
     track.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
   }
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   function startAutoPlay() {
-    if (!track) return;
+    if (!track || !cards || cards.length === 0) return;
     autoPlay = setInterval(() => {
       goTo((current + 1) % cards.length);
     }, 4500);
@@ -126,9 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
   startAutoPlay();
 
   // Sync dots on manual scroll
-  if (track) {
+  if (track && cards && cards.length > 0) {
     track.addEventListener('scroll', () => {
-      const cardWidth = cards[0].offsetWidth + 24;
+      const firstCard = cards[0];
+      if (!firstCard) return;
+      const cardWidth = firstCard.offsetWidth + 24;
       const idx = Math.round(track.scrollLeft / cardWidth);
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
       current = idx;
