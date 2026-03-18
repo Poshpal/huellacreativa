@@ -1288,7 +1288,7 @@ input, textarea, select { font-family: inherit; }
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
-    top: 68px; left: 0; right: 0;
+    top: 50px; left: 0; right: 0;
     background: var(--white);
     flex-direction: column;
     align-items: center;
@@ -1308,7 +1308,7 @@ input, textarea, select { font-family: inherit; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
 
   /* Navbar compacto para que se vea el logo y nombre */
-  .nav-container { padding: 0 16px; }
+  .nav-container { padding: 0 16px; height: 60px; }
   .nav-logo {
     font-size: 1.15rem;
     gap: .35rem;
@@ -1341,8 +1341,8 @@ input, textarea, select { font-family: inherit; }
   }
   /* En móvil no hay hover: mostramos el hint un poco para guiar al usuario */
   .gallery-video-hint {
-    opacity: .95;
-    transform: translate(-50%, -56%);
+    opacity: 0;
+    transform: translate(-50%, -52%);
   }
 
   /* Ajustes extra para navbar en pantallas muy pequeñas */
