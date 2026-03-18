@@ -28,6 +28,31 @@
   --font-display:'Fredoka One', cursive;
 }
 
+/* ---- VARIABLES (correct selector fallback) ---- */
+:root {
+  --primary:     #FF6B35;
+  --primary-d:   #E85520;
+  --secondary:   #4ECDC4;
+  --secondary-d: #36B8AF;
+  --accent:      #FFD166;
+  --accent-d:    #E6B84D;
+  --dark:        #2D2D2D;
+  --dark-2:      #444;
+  --gray:        #767676;
+  --light-gray:  #F4F4F8;
+  --white:       #FFFFFF;
+  --gradient-hero: linear-gradient(135deg, #FF6B35 0%, #FF9A5C 40%, #FFD166 100%);
+  --gradient-how:  linear-gradient(135deg, #4ECDC4 0%, #36B8AF 50%, #2DA89F 100%);
+  --gradient-test: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --shadow:      0 8px 32px rgba(45,45,45,.12);
+  --shadow-hover:0 16px 48px rgba(45,45,45,.20);
+  --radius:      16px;
+  --radius-sm:   10px;
+  --transition:  .3s ease;
+  --font-main:   'Nunito', sans-serif;
+  --font-display:'Fredoka One', cursive;
+}
+
 /* ---- RESET & BASE ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1159,6 +1184,13 @@ input, textarea, select { font-family: inherit; }
   color: rgba(255,255,255,.4);
 }
 
+.footer-logo-img {
+  height: 100px;
+  width: auto;
+  display: block;
+  transition: transform var(--transition);
+}
+.footer-logo-img:hover { transform: scale(1.05); }
 /* ---- WHATSAPP FLOAT ---- */
 .wa-float {
   position: fixed;
@@ -1274,6 +1306,21 @@ input, textarea, select { font-family: inherit; }
   .form-row { grid-template-columns: 1fr; }
   .footer-content { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 24px 1.5rem; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Navbar compacto para que se vea el logo y nombre */
+  .nav-container { padding: 0 16px; }
+  .nav-logo {
+    font-size: 1.15rem;
+    gap: .35rem;
+    max-width: calc(100% - 56px);
+  }
+  .paw-icon { font-size: 1.35rem; }
+  .logo-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1297,6 +1344,13 @@ input, textarea, select { font-family: inherit; }
     opacity: .95;
     transform: translate(-50%, -56%);
   }
+
+  /* Ajustes extra para navbar en pantallas muy pequeñas */
+  .nav-container { padding: 0 12px; }
+  .nav-logo { font-size: 1.02rem; }
+  .logo-text { font-size: .95rem; }
+  .paw-icon { font-size: 1.2rem; }
+  .hamburger span { width: 20px; }
 }
 
 /* ---- SCROLLBAR ---- */
@@ -1418,4 +1472,34 @@ input, textarea, select { font-family: inherit; }
   height: auto;
   display: block;
   background: var(--dark);
+}
+
+.logo-img {
+  height: 90px;
+  width: auto;
+  display: block;
+  transition: transform var(--transition);
+}
+.logo-img:hover { transform: scale(1.05); }
+
+.btn-email {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--white);
+  color: var(--dark);
+  border: 2px solid #ddd;
+  padding: .8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: .95rem;
+  margin-top: .75rem;
+  transition: all var(--transition);
+}
+.btn-email:hover {
+  background: #f8f8f8;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
 }
