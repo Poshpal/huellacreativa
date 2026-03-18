@@ -193,6 +193,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+        form.style.animation = 'none';
+        void form.offsetWidth;
+        form.style.animation = 'shake .4s ease';
+        return;
+    }
+
+    // 1. Mostrar estado de carga en el botón
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    // 2. Preparar el mensaje de WhatsApp
+    const ownerName = document.getElementById('ownerName').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const petName   = document.getElementById('petName').value.trim();
+    const petType   = document.getElementById('petType').value;
+    const petBreed  = document.getElementById('petBreed').value.trim();
+    const petAge    = document.getElementById('petAge').value.trim();
+    const message   = document.getElementById('message').value.trim();
+
+    const petTypeLabels = { gato: '🐱 Gato', perro: '🐕 Perro', otro: '🐾 Otro' };
+
+    const waMsg = encodeURIComponent(
+      `¡Hola Huella Creativa! 🐾 Quiero pedir un PetPop personalizado:\n\n` +
+      `👤 Nombre: ${ownerName}\n` +
+      `📱 Teléfono: ${phone}\n` +
+      `🐾 Mascota: ${petName}\n` +
+      `🐾 Tipo: ${petTypeLabels[petType] || petType}\n` +
+      (petBreed ? `🔖 Raza: ${petBreed}\n` : '') +
+      (petAge   ? `📅 Edad: ${petAge}\n` : '') +
+      (message  ? `\n💬 Mensaje:\n${message}` : '')
+    );
+
+    // 3. Pequeño retraso para que el usuario vea la animación de "Enviando"
+    // Pero sin usar setTimeout anidado para no perder el permiso del navegador
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // 4. CAMBIO CLAVE: Usar location.href en lugar de window.open
+    // Esto evita que el bloqueador de pop-ups detenga la acción
+    const whatsappUrl = `https://wa.me/5491100000000?text=${waMsg}`;
+    
+    // Mostramos el éxito en la web
+    submitBtn.classList.remove('loading');
+    form.style.display = 'none';
+    formSucc.classList.add('visible');
+
+    // Redirigimos a WhatsApp
+    window.location.assign(whatsappUrl);
+});
+
+
+  /*
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     if (!validateForm()) {
       // Shake animation on invalid
       form.style.animation = 'none';
@@ -239,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       window.open(`https://wa.me/5219811683822?text=${waMsg}`, '_blank');
     }, 800);
-  });
+  });*/
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
