@@ -135,6 +135,28 @@ input, textarea, select { font-family: inherit; }
 }
 .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,211,102,.5); }
 
+.btn-email {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--white);
+  color: var(--dark);
+  border: 2px solid #ddd;
+  padding: .8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: .95rem;
+  margin-top: .75rem;
+  transition: all var(--transition);
+}
+.btn-email:hover {
+  background: #f8f8f8;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
 .btn-full { width: 100%; justify-content: center; }
 .btn-nav {
   background: var(--primary);
@@ -178,8 +200,14 @@ input, textarea, select { font-family: inherit; }
   font-size: 1.45rem;
   color: var(--dark);
 }
-.paw-icon { font-size: 1.6rem; animation: wiggle 3s ease-in-out infinite; }
-.logo-accent { color: var(--primary); }
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  display: block;
+  transition: transform var(--transition);
+}
+.logo-img:hover { transform: scale(1.05); }
 
 .nav-links {
   display: flex;
