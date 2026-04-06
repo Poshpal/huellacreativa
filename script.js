@@ -79,6 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
   revealEls.forEach(el => revealObserver.observe(el));
 
   /* =============================================
+     4.5. PRICES CALCULATOR
+  ============================================= */
+  const PRICE_UNIT = 400;
+  const DISCOUNT_2 = 0.10;
+
+  const qtyBtns = document.querySelectorAll('.calc-qty-btn');
+  const subtotalEl = document.getElementById('priceSubtotal');
+  const discountEl = document.getElementById('priceDiscount');
+  const totalEl = document.getElementById('priceTotal');
+
+  function formatMXN(value) {
+    const n = Math.round(value);
+    return `$${n.toLocaleString('es-MX')} MXN`;
+  }
+
+  function setQty(qty) {
+    const q = qty === 2 ? 2 : 1;
+    const subtotal = PRICE_UNIT * q;
+    const discount = q === 2 ? subtotal * DISCOUNT_2 : 0;
+    const total = subtotal - discount;
+
+    qtyBtns.forEach(btn => btn.classList.toggle('is-active', Number(btn.dataset.qty) === q));
+    if (subtotalEl) subtotalEl.textContent = formatMXN(subtotal);
+    if (discountEl) discountEl.textContent = formatMXN(discount);
+    if (totalEl) totalEl.textContent = formatMXN(total);
+  }
+
+  if (qtyBtns.length) {
+    qtyBtns.forEach(btn => {
+      btn.addEventListener('click', () => setQty(Number(btn.dataset.qty)));
+    });
+    setQty(1);
+  }
+
+  /* =============================================
      5. FAQ ACCORDION
   ============================================= */
   const faqItems = document.querySelectorAll('.faq-item');

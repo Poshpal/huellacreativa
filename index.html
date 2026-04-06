@@ -29,6 +29,7 @@
         <li><a href="#como-funciona" class="nav-link">¿Cómo pedir mi PetPop?</a></li>
         <li><a href="#galeria" class="nav-link">Modelos disponibles</a></li>
         <!-- <li><a href="#testimonios" class="nav-link">Testimonios</a></li> -->
+        <li><a href="#precios" class="nav-link">Precios</a></li>
         <li><a href="#pedido" class="nav-link btn-nav">¡Pedir ahora!</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menú">
@@ -392,7 +393,66 @@
       </div>
     </div>
   </section>
+<!-- ========== PRECIOS ========== -->
+<section class="prices-section" id="precios">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">💰 Precios</span>
+      <h2 class="section-title">Precios de nuestros <span class="accent">PetPop</span></h2>
+      <p class="section-subtitle">Elige cuántos quieres y mira el descuento automáticamente</p>
+    </div>
 
+    <div class="prices-grid">
+      <div class="price-card card-reveal">
+        <div class="price-card-top">
+          <div class="price-badge">⭐ Más pedido</div>
+          <h3 class="price-title">PetPop Personalizado</h3>
+          <p class="price-desc">Figura de yeso estilo Funko Pop con la imagen de tu mascota y pintado a mano.</p>
+        </div>
+
+        <div class="price-amount">
+          <span class="price-currency">$</span>
+          <span class="price-value">400</span>
+          <span class="price-unit">MXN</span>
+        </div>
+
+        <ul class="price-features">
+          <li>🎨 Pintado a mano</li>
+          <li>🐾 Personalización total</li>
+          <li>📦 Caja coleccionable personalizada</li>
+        </ul>
+      </div>
+
+      <div class="price-calc card-reveal delay-1">
+        <h3 class="calc-title">Calcula tu total</h3>
+
+        <div class="calc-qty" role="group" aria-label="Cantidad de PetPop">
+          <button type="button" class="calc-qty-btn is-active" data-qty="1">1 PetPop</button>
+          <button type="button" class="calc-qty-btn" data-qty="2">2 PetPops <span class="calc-discount-pill">-10%</span></button>
+        </div>
+
+        <div class="calc-summary" aria-live="polite">
+          <div class="calc-row">
+            <span>Subtotal</span>
+            <strong id="priceSubtotal">$400 MXN</strong>
+          </div>
+          <div class="calc-row">
+            <span>Descuento</span>
+            <strong id="priceDiscount">$0 MXN</strong>
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row total">
+            <span>Total</span>
+            <strong id="priceTotal">$400 MXN</strong>
+          </div>
+        </div>
+
+        <a href="#pedido" class="btn btn-primary btn-full">🎁 Pedir ahora</a>
+        <p class="calc-note">El 10% se aplica automáticamente al comprar 2.</p>
+      </div>
+    </div>
+  </div>
+</section>
   <!-- ========== FORMULARIO DE PEDIDO ========== -->
   <section class="order-section" id="pedido">
     <div class="order-bg-shapes">
@@ -542,6 +602,7 @@
             <li><a href="#producto">¿Qué es PetPop?</a></li>
             <li><a href="#como-funciona">¿Cómo pedir mi PetPop?</a></li>
             <li><a href="#galeria">Modelos disponibles</a></li>
+            <li><a href="#precios">Precios</a></li>
             <li><a href="#pedido">Pedir ahora</a></li>
           </ul>
         </div>
