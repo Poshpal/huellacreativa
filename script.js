@@ -213,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const petNicknames = document.getElementById('petNicknames').value.trim();
       const petActivity = document.getElementById('petActivity').value.trim();
       const message   = document.getElementById('message').value.trim();
+      const accept    = document.getElementById('accept').value.trim();
 
       const petTypeLabels = { gato: '🐱 Gato', perro: '🐕 Perro', otro: '🐾 Otro' };
 
@@ -226,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         (petAge   ? `📅 Edad: ${petAge}\n` : '') +
         (petNicknames ? `📝 Apodos: ${petNicknames}\n` : '') +
         (petActivity ? `🏃 Actividad favorita: ${petActivity}\n` : '') +
-        (message  ? `\n💬 Mensaje/Datos extra:\n${message}` : '')
+        (message  ? `\n💬 Mensaje/Datos extra:\n${message}` : '') +
+        (accept ? `\n💰 Acepto dar $100 de anticipo para que agenden mi pedido` : '')
       );
 
       // Simular un pequeño retraso visual (opcional)
