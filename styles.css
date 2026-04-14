@@ -114,6 +114,7 @@ input, textarea, select { font-family: inherit; }
 .section-subtitle.light { color: rgba(255,255,255,.85); }
 .accent { color: var(--primary); }
 .accent-light { color: var(--accent); }
+.accent-light-2 { color: var(--light-gray); }
 
 /* ---- BUTTONS ---- */
 .btn {
@@ -190,6 +191,9 @@ input, textarea, select { font-family: inherit; }
   border-radius: 50px;
   font-weight: 800;
   font-size: .9rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
   transition: background var(--transition), transform var(--transition);
 }
 .btn-nav:hover { background: var(--primary-d); transform: translateY(-2px); }
@@ -224,6 +228,7 @@ input, textarea, select { font-family: inherit; }
   font-family: var(--font-display);
   font-size: 1.45rem;
   color: var(--dark);
+  flex: 0 0 auto;
 }
 
 .logo-img {
@@ -234,15 +239,24 @@ input, textarea, select { font-family: inherit; }
 }
 .logo-img:hover { transform: scale(1.05); }
 
+.logo-text {
+  display: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-left: auto;
 }
+.nav-links li { flex-shrink: 0; }
 .nav-link {
   font-weight: 700;
   font-size: .9rem;
   color: var(--dark-2);
+  white-space: nowrap;
   transition: color var(--transition);
   position: relative;
 }
@@ -883,6 +897,7 @@ input, textarea, select { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: .2rem;
+  text-align: center;
 }
 .gallery-name { font-family: var(--font-display); font-size: 1.1rem; color: var(--dark); }
 .gallery-breed { font-size: .82rem; color: var(--gray); font-weight: 600; }
@@ -1036,8 +1051,14 @@ input, textarea, select { font-family: inherit; }
 
 /* ---- PRICES SECTION ---- */
 .prices-section {
-  padding: 100px 0 80px;
-  background: var(--white);
+  padding: 0;
+  background: var(--gradient-test);
+  position: relative;
+  overflow: hidden;
+}
+
+.prices-section .container {
+  padding: 3rem 24px 3rem;
 }
 
 .prices-grid {
@@ -1474,6 +1495,39 @@ input, textarea, select { font-family: inherit; }
 .card-reveal.delay-3 { transition-delay: .36s; }
 
 /* ---- RESPONSIVE ---- */
+@media (max-width: 1200px) {
+  .nav-links { gap: 1rem; }
+  .nav-link { font-size: .82rem; }
+  .btn-nav { padding: .45rem 1rem; font-size: .82rem; }
+  .nav-logo { font-size: 1.2rem; }
+  .logo-img { height: 52px; }
+}
+
+@media (max-width: 960px) {
+  .nav-links {
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--white);
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    gap: 1.2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    transform: translateY(-120%);
+    transition: transform .35s ease;
+    z-index: 999;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .hamburger { display: flex; }
+
+  .nav-container { padding: 0 16px; height: 64px; }
+  .nav-logo {
+    font-size: 1.15rem;
+    gap: .35rem;
+    max-width: calc(100% - 56px);
+  }
+}
+
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; padding: 100px 6% 60px; text-align: center; gap: 2rem; }
   .hero-ctas { justify-content: center; }
@@ -1516,6 +1570,7 @@ input, textarea, select { font-family: inherit; }
   }
   .paw-icon { font-size: 1.35rem; }
   .logo-text {
+    display: inline;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
