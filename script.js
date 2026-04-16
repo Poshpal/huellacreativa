@@ -8,6 +8,49 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* =============================================
+     INTRO VIDEO: loop silenciado + desvanecer al scroll
+  ============================================= */
+  const introVideoSection = document.getElementById('introVideoSection');
+  const introVideo = document.getElementById('introVideo');
+  if (introVideoSection && introVideo) {
+    introVideo.defaultMuted = true;
+    introVideo.muted = true;
+    const fadeDistance = 420;
+    let introFadeTicking = false;
+    const getScrollTop = () => (
+      window.scrollY
+      || window.pageYOffset
+      || document.documentElement.scrollTop
+      || document.body.scrollTop
+      || 0
+    );
+    const updateIntroVideoFade = () => {
+      introFadeTicking = false;
+      const y = getScrollTop();
+      const opacity = Math.max(0, Math.min(1, 1 - y / fadeDistance));
+      introVideoSection.style.opacity = String(opacity);
+      if (opacity < 0.04) {
+        introVideoSection.style.pointerEvents = 'none';
+        if (!introVideo.paused) introVideo.pause();
+      } else {
+        introVideoSection.style.pointerEvents = '';
+        introVideo.play().catch(() => {});
+      }
+    };
+    const onIntroScroll = () => {
+      if (!introFadeTicking) {
+        introFadeTicking = true;
+        requestAnimationFrame(updateIntroVideoFade);
+      }
+    };
+    window.addEventListener('scroll', onIntroScroll, { passive: true });
+    window.addEventListener('touchmove', onIntroScroll, { passive: true });
+    window.addEventListener('resize', onIntroScroll, { passive: true });
+    window.addEventListener('orientationchange', onIntroScroll, { passive: true });
+    updateIntroVideoFade();
+  }
+
+  /* =============================================
      1. NAVBAR: scroll hide/show + transparent
   ============================================= */
   const navbar = document.getElementById('navbar');
