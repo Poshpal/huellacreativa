@@ -1,0 +1,41 @@
+[
+  {
+    "name": "🐱 Perrito 1",
+    "image": "images/perrito.png",
+    "alt": "PetPop de Shivu - Perro Beagle",
+    "video": "videos/perrito1.mp4"
+  },
+  {
+    "name": "🐕 Gatito 1",
+    "image": "images/garfield.png",
+    "alt": "PetPop de Garfield - Gato naranja",
+    "video": "videos/gatito1.mp4"
+  },
+  {
+    "name": "🐱 Gatito 2",
+    "image": "images/tom.png",
+    "alt": "PetPop de Tom - Gato naranja",
+    "video": "videos/gatito2.mp4"
+  },
+  {
+    "name": "🐕 Perrito 2",
+    "image": "images/perro.png",
+    "alt": "PetPop de Max - Perro Labrador",
+    "video": "videos/perrito2.mp4"
+  },
+  {
+    "name": "🐱 Perrito 3",
+    "image": "images/perrito3.png",
+    "alt": "PetPop de Baldo - Perro Schnauzer"  
+  },
+  {
+    "name": "🐱 Perrito 4",
+    "image": "images/perrito4.png",
+    "alt": "PetPop de Chispa - Perro Poodle"  
+  },
+  {
+    "name": "🐱 Perrito 5",
+    "image": "images/perrito5.png",
+    "alt": "PetPop de Baxter - Perro Pitbull"  
+  }
+]

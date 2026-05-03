@@ -29,7 +29,7 @@
         <li><a href="#como-funciona" class="nav-link">¿Cómo pedir mi PetPop?</a></li>
         <li><a href="#galeria" class="nav-link">Modelos disponibles</a></li>
         <li><a href="#faq" class="nav-link">Preguntas frecuentes</a></li>
-        <!-- <li><a href="#testimonios" class="nav-link">Testimonios</a></li> -->
+        <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
         <li><a href="#precios" class="nav-link">Precios</a></li>
         <li><a href="#pedido" class="nav-link btn-nav">¡Pedir ahora!</a></li>
       </ul>
@@ -92,7 +92,7 @@
       <!-- 🖼️ HERO VISUAL - CAMBIAR AQUÍ TUS IMÁGENES -->
     <div class="hero-visual animate-float">
      <div class="hero-product-image">
-      <img src="images/garfield_caja.png" alt="PetPop personalizado - Figuras de yeso estilo Funko Pop" />
+      <img src="images/perrito6-caja.png" alt="PetPop personalizado - Figuras de yeso estilo Funko Pop" />
       <div class="hero-product-badge">¡Nuevo Peludo!</div>
     </div>
       
@@ -230,51 +230,9 @@
         <p class="section-subtitle">Da click en las figuras para ver los videos</p>
       </div>
 
-       <!-- 🖼️ GALERÍA DE IMÁGENES - CAMBIAR AQUÍ TUS FOTOS -->
-      <div class="gallery-grid">
-
-          <!-- Card 2 - CAMBIAR: Nombre, raza, edad e imagen -->
-          <div class="gallery-card card-reveal delay-1" data-video="videos/perrito1.mp4" tabindex="0" role="button" aria-label="Reproducir video de Perrito 1" title="Click para ver el video">
-            <div class="gallery-img-wrap">
-              <span class="gallery-video-hint" aria-hidden="true">Click para ver video ▶</span>
-              <img src="images/perrito.png" alt="PetPop de Shivu - Perro Beagle" class="gallery-image" />
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-name">🐱 Perrito 1</span>
-            </div>
-          </div>
-         <!-- Card 3 - CAMBIAR: Nombre, raza, edad e imagen -->
-        <div class="gallery-card card-reveal delay-2" data-video="videos/gatito1.mp4" tabindex="0" role="button" aria-label="Reproducir video de Gatito 1" title="Click para ver el video">
-          <div class="gallery-img-wrap">
-            <span class="gallery-video-hint" aria-hidden="true">Click para ver video ▶</span>
-            <img src="images/garfield.png" alt="PetPop de Garfield - Gato naranja" class="gallery-image" />
-          </div>
-          <div class="gallery-info">
-            <span class="gallery-name">🐕 Gatito 1</span>
-          </div>
-        </div>    
-        <!-- Card 1 - CAMBIAR: Nombre, raza, edad e imagen -->
-        <div class="gallery-card card-reveal" data-video="videos/gatito2.mp4" tabindex="0" role="button" aria-label="Reproducir video de Gatito 2" title="Click para ver el video">
-          <div class="gallery-img-wrap">
-            <span class="gallery-video-hint" aria-hidden="true">Click para ver video ▶</span>
-            <img src="images/tom.png" alt="PetPop de Tom - Gato naranja" class="gallery-image" />
-          </div>
-          <div class="gallery-info">
-            <span class="gallery-name">🐱 Gatito 2</span>
-          </div>
-        </div>
-        
-        <!-- Card 4 - CAMBIAR: Nombre, raza, edad e imagen -->
-        <div class="gallery-card card-reveal delay-3" data-video="videos/perrito2.mp4" tabindex="0" role="button" aria-label="Reproducir video de Perrito 2" title="Click para ver el video">
-          <div class="gallery-img-wrap">
-            <span class="gallery-video-hint" aria-hidden="true">Click para ver video ▶</span>
-            <img src="images/perro.png" alt="PetPop de Max - Perro Labrador" class="gallery-image" />
-          </div>
-          <div class="gallery-info">
-            <span class="gallery-name">🐕 Perrito 2</span>
-          </div>
-        </div>
-      </div>
+       <!-- 🖼️ GALERÍA DE IMÁGENES - CAMBIAR MODELOS EN models.json -->
+      <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+      <div class="gallery-dots" id="galleryDots" aria-label="Navegación de modelos"></div>
 
       <!-- <div class="gallery-cta card-reveal">
         <p>¿Quieres ver el tuyo acá? 🐾</p>
@@ -284,7 +242,7 @@
   </section>
 
   <!-- ========== TESTIMONIOS ========== -->
-  <!-- <section class="testimonials-section" id="testimonios">
+  <section class="testimonials-section" id="testimonios">
     <div class="test-bg-top">
       <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="#fff"/>
@@ -295,65 +253,15 @@
         <span class="section-tag light">💬 Testimonios</span>
         <h2 class="section-title light">Lo que dicen nuestros <span class="accent-light">clientes</span></h2>
       </div>
-      <div class="testimonials-track" id="testimonialsTrack">
-        <div class="testimonial-card">
-          <div class="test-stars">⭐⭐⭐⭐⭐</div>
-          <p>"¡Me quedé sin palabras! La figura de Mia quedó idéntica. La caja con su foto y sus datos es una obra de arte. Lo recomiendo a todos los amantes de las mascotas."</p>
-          <div class="test-author">
-            <div class="test-avatar">A</div>
-            <div>
-              <strong>Ana García</strong>
-              <span>Mamá de Mia 🐈</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="test-stars">⭐⭐⭐⭐⭐</div>
-          <p>"Lo regalé en el cumpleaños de mi novio y fue el regalo más original que le di en toda nuestra relación. Él llora de emoción cada vez que lo ve 😂🐕"</p>
-          <div class="test-author">
-            <div class="test-avatar">L</div>
-            <div>
-              <strong>Laura Méndez</strong>
-              <span>Mamá de Rocky 🐕</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="test-stars">⭐⭐⭐⭐⭐</div>
-          <p>"Atención personalizada desde el primer mensaje. Me ayudaron a elegir las fotos perfectas y el resultado superó todas mis expectativas. ¡Volveré a pedir!"</p>
-          <div class="test-author">
-            <div class="test-avatar">C</div>
-            <div>
-              <strong>Carlos Ruiz</strong>
-              <span>Papá de Max y Luna 🐈🐕</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="test-stars">⭐⭐⭐⭐⭐</div>
-          <p>"La calidad del yeso es increíble. Ya lleva 1 año en el estante y no tiene ni un rasguño."</p>
-          <div class="test-author">
-            <div class="test-avatar">M</div>
-            <div>
-              <strong>Martina López</strong>
-              <span>Mamá de Tom 🐱</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonials-dots" id="testimonialsDots">
-        <button class="dot active" data-index="0"></button>
-        <button class="dot" data-index="1"></button>
-        <button class="dot" data-index="2"></button>
-        <button class="dot" data-index="3"></button>
-      </div>
+      <div class="testimonials-track" id="testimonialsTrack" aria-live="polite"></div>
+      <div class="testimonials-dots" id="testimonialsDots" aria-label="Navegación de testimonios"></div>
     </div>
     <div class="test-bg-bottom">
       <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#fff"/>
       </svg>
     </div>
-  </section> -->
+  </section>
 
   <!-- ========== FAQ ========== -->
   <section class="faq-section" id="faq">
@@ -397,7 +305,8 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Ofrecemos <strong>retiro en persona</strong> sin cargo adicional. También podemos enviarte por medio de mandaditos con costo extra, dependiendo de la distancia.</p>
+            <p>Ofrecemos <strong>retiro en persona</strong> sin cargo adicional. También podemos enviarte por medio de mandaditos con costo extra, dependiendo de la distancia en Campeche y Seybaplaya.</p>
+            <p>Contamos con envíos a todo el país desde <strong>$160MXN</strong>. El packaging está diseñado para proteger la figura durante el traslado.</p>
           </div>
         </div>
         <div class="faq-item card-reveal">
@@ -448,16 +357,22 @@
           <li>🎨 Pintado a mano</li>
           <li>🐾 Personalización total</li>
           <li>📦 Caja coleccionable personalizada</li>
+          <li>🚚 Envíos a todo el país desde <strong>$160 MXN</strong></li>
         </ul>
       </div>
 
       <div class="price-calc card-reveal delay-1">
-        <h3 class="calc-title">Calcula tu total</h3>
+        <h3 class="calc-title">Simulador de precios</h3>
 
         <div class="calc-qty" role="group" aria-label="Cantidad de PetPop">
           <button type="button" class="calc-qty-btn is-active" data-qty="1">1 PetPop</button>
           <button type="button" class="calc-qty-btn" data-qty="2">2 PetPops <span class="calc-discount-pill">-10%</span></button>
         </div>
+
+        <label class="calc-shipping-toggle">
+          <input type="checkbox" id="includeShipping" checked />
+          <span>Incluir envío a todo el país desde $160 MXN</span>
+        </label>
 
         <div class="calc-summary" aria-live="polite">
           <div class="calc-row">
@@ -468,15 +383,19 @@
             <span>Descuento</span>
             <strong id="priceDiscount">$0 MXN</strong>
           </div>
+          <div class="calc-row">
+            <span>Envío desde</span>
+            <strong id="priceShipping">$160 MXN</strong>
+          </div>
           <div class="calc-divider"></div>
           <div class="calc-row total">
             <span>Total</span>
-            <strong id="priceTotal">$400 MXN</strong>
+            <strong id="priceTotal">$560 MXN</strong>
           </div>
         </div>
 
         <a href="#pedido" class="btn btn-primary btn-full">🎁 Pedir ahora</a>
-        <p class="calc-note">El 10% se aplica automáticamente al comprar 2.</p>
+        <p class="calc-note">El 10% se aplica automáticamente al comprar 2. Puedes activar o desactivar el envío según tu forma de entrega.</p>
       </div>
     </div>
   </div>
@@ -647,7 +566,6 @@
             <li><a href="#producto">¿Qué es PetPop?</a></li>
             <li><a href="#como-funciona">¿Cómo pedir mi PetPop?</a></li>
             <li><a href="#galeria">Modelos disponibles</a></li>
-            <!-- <li><a href="#faq">Preguntas frecuentes</a></li> -->
             <li><a href="#precios">Precios</a></li>
             <li><a href="#pedido">Pedir ahora</a></li>
           </ul>
@@ -656,7 +574,7 @@
           <h4>Info</h4>
           <ul>
             <li><a href="#faq">Preguntas frecuentes</a></li>
-            <!-- <li><a href="#testimonios">Testimonios</a></li> -->
+            <li><a href="#testimonios">Testimonios</a></li>
             <li><a href="#pedido">Contacto</a></li>
           </ul>
         </div>

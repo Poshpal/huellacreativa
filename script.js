@@ -126,11 +126,15 @@ document.addEventListener('DOMContentLoaded', () => {
   ============================================= */
   const PRICE_UNIT = 400;
   const DISCOUNT_2 = 0.10;
+  const SHIPPING_COST = 160;
 
   const qtyBtns = document.querySelectorAll('.calc-qty-btn');
+  const includeShippingEl = document.getElementById('includeShipping');
   const subtotalEl = document.getElementById('priceSubtotal');
   const discountEl = document.getElementById('priceDiscount');
+  const shippingEl = document.getElementById('priceShipping');
   const totalEl = document.getElementById('priceTotal');
+  let currentQty = 1;
 
   function formatMXN(value) {
     const n = Math.round(value);
@@ -139,13 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setQty(qty) {
     const q = qty === 2 ? 2 : 1;
+    currentQty = q;
     const subtotal = PRICE_UNIT * q;
     const discount = q === 2 ? subtotal * DISCOUNT_2 : 0;
-    const total = subtotal - discount;
+    const shipping = includeShippingEl && includeShippingEl.checked ? SHIPPING_COST : 0;
+    const total = subtotal - discount + shipping;
 
     qtyBtns.forEach(btn => btn.classList.toggle('is-active', Number(btn.dataset.qty) === q));
     if (subtotalEl) subtotalEl.textContent = formatMXN(subtotal);
     if (discountEl) discountEl.textContent = formatMXN(discount);
+    if (shippingEl) shippingEl.textContent = formatMXN(shipping);
     if (totalEl) totalEl.textContent = formatMXN(total);
   }
 
@@ -153,6 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
     qtyBtns.forEach(btn => {
       btn.addEventListener('click', () => setQty(Number(btn.dataset.qty)));
     });
+    if (includeShippingEl) {
+      includeShippingEl.addEventListener('change', () => setQty(currentQty));
+    }
     setQty(1);
   }
 
@@ -176,10 +186,56 @@ document.addEventListener('DOMContentLoaded', () => {
      6. TESTIMONIALS SLIDER
   ============================================= */
   const track  = document.getElementById('testimonialsTrack');
-  const dots   = document.querySelectorAll('.testimonials-dots .dot');
-  const cards  = document.querySelectorAll('.testimonial-card');
+  const dotsWrap = document.getElementById('testimonialsDots');
+  let dots   = [];
+  let cards  = [];
   let current  = 0;
   let autoPlay;
+
+  function createTestimonialCard(testimonial) {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+
+    const stars = document.createElement('div');
+    stars.className = 'test-stars';
+    const rating = Math.max(1, Math.min(5, Number(testimonial.rating) || 5));
+    stars.textContent = '⭐'.repeat(rating);
+
+    const message = document.createElement('p');
+    message.textContent = `"${testimonial.message || ''}"`;
+
+    const pet = document.createElement('div');
+    pet.className = 'test-author';
+    pet.textContent = testimonial.pet || '';
+
+    card.append(stars, message, pet);
+
+    return card;
+  }
+
+  function createTestimonialDot(index) {
+    const dot = document.createElement('button');
+    dot.className = `dot${index === 0 ? ' active' : ''}`;
+    dot.type = 'button';
+    dot.dataset.index = String(index);
+    dot.setAttribute('aria-label', `Ver testimonio ${index + 1}`);
+    return dot;
+  }
+
+  function renderTestimonials(testimonials) {
+    if (!track || !dotsWrap) return;
+
+    track.innerHTML = '';
+    dotsWrap.innerHTML = '';
+
+    testimonials.forEach((testimonial, index) => {
+      track.appendChild(createTestimonialCard(testimonial));
+      dotsWrap.appendChild(createTestimonialDot(index));
+    });
+
+    cards = Array.from(track.querySelectorAll('.testimonial-card'));
+    dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+  }
 
   function goTo(index) {
     if (!track || !cards || cards.length === 0) return;
@@ -191,31 +247,56 @@ document.addEventListener('DOMContentLoaded', () => {
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
   }
 
-  dots.forEach((dot, i) => dot.addEventListener('click', () => {
-    clearInterval(autoPlay);
-    goTo(i);
-    startAutoPlay();
-  }));
+  function bindTestimonialDots() {
+    dots.forEach((dot, i) => dot.addEventListener('click', () => {
+      clearInterval(autoPlay);
+      goTo(i);
+      startAutoPlay();
+    }));
+  }
 
   function startAutoPlay() {
     if (!track || !cards || cards.length === 0) return;
+    clearInterval(autoPlay);
     autoPlay = setInterval(() => {
       goTo((current + 1) % cards.length);
     }, 4500);
   }
-  startAutoPlay();
 
   // Sync dots on manual scroll
-  if (track && cards && cards.length > 0) {
+  if (track) {
     track.addEventListener('scroll', () => {
+      if (!cards || cards.length === 0) return;
       const firstCard = cards[0];
       if (!firstCard) return;
       const cardWidth = firstCard.offsetWidth + 24;
-      const idx = Math.round(track.scrollLeft / cardWidth);
+      const idx = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / cardWidth)));
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
       current = idx;
     }, { passive: true });
   }
+
+  async function loadTestimonials() {
+    if (!track || !dotsWrap) return;
+
+    try {
+      const response = await fetch('testimonials.json');
+      if (!response.ok) throw new Error('No se pudo cargar testimonials.json');
+
+      const testimonials = await response.json();
+      if (!Array.isArray(testimonials) || testimonials.length === 0) return;
+
+      renderTestimonials(testimonials);
+      bindTestimonialDots();
+      goTo(0);
+      startAutoPlay();
+    } catch (error) {
+      console.error('Error cargando testimonios:', error);
+      track.innerHTML = '<p class="section-subtitle light">No se pudieron cargar los testimonios por el momento.</p>';
+    }
+  }
+
+  loadTestimonials();
 
   /* =============================================
      7. FORM VALIDATION & SUBMIT (FIXED FOR GITHUB)
@@ -354,31 +435,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =============================================
-     8. GALLERY CARD 3D TILT
+     8. MODELOS DISPONIBLES DESDE JSON
   ============================================= */
-  document.querySelectorAll('.gallery-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect   = card.getBoundingClientRect();
-      const x      = e.clientX - rect.left;
-      const y      = e.clientY - rect.top;
-      const cx     = rect.width  / 2;
-      const cy     = rect.height / 2;
-      const rotX   = ((y - cy) / cy) * -8;
-      const rotY   = ((x - cx) / cx) * 8;
-      card.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-10px) scale(1.02)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  /* =============================================
-     8.5. MODAL VIDEO GALERÍA
-  ============================================= */
+  const galleryGrid = document.getElementById('galleryGrid');
+  const galleryDotsWrap = document.getElementById('galleryDots');
   const galleryVideoModal = document.getElementById('galleryVideoModal');
   const galleryVideoEl    = document.getElementById('galleryVideoModalVideo');
   const galleryModalClose = document.querySelector('.gallery-video-modal-close');
   const galleryModalBack  = document.querySelector('.gallery-video-modal-backdrop');
+  let galleryCards = [];
+  let galleryDots = [];
+  let currentGallery = 0;
+  let galleryAutoPlay;
 
   function closeGalleryVideo() {
     if (!galleryVideoModal || !galleryVideoEl) return;
@@ -408,15 +476,29 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryVideoEl.play().catch(() => {});
   }
 
-  // Click en cada tarjeta: abrir modal solo si hay data-video
-  document.querySelectorAll('.gallery-card').forEach(card => {
+  function bindGalleryCard(card) {
+    card.addEventListener('mousemove', (e) => {
+      const rect   = card.getBoundingClientRect();
+      const x      = e.clientX - rect.left;
+      const y      = e.clientY - rect.top;
+      const cx     = rect.width  / 2;
+      const cy     = rect.height / 2;
+      const rotX   = ((y - cy) / cy) * -8;
+      const rotY   = ((x - cx) / cx) * 8;
+      card.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-10px) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+
+    if (!card.dataset.video) return;
+
     card.addEventListener('click', () => {
       const videoSrc = card.getAttribute('data-video');
       if (!videoSrc || !String(videoSrc).trim()) return;
       openGalleryVideo(videoSrc);
     });
 
-    // Accesibilidad: abrir modal con teclado (Enter / Espacio)
     card.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
@@ -424,7 +506,140 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!videoSrc || !String(videoSrc).trim()) return;
       openGalleryVideo(videoSrc);
     });
-  });
+  }
+
+  function createGalleryCard(model, index) {
+    const card = document.createElement('div');
+    const delayClass = index > 0 && index <= 3 ? ` delay-${index}` : '';
+    const video = (model.video && typeof model.video === 'string') ? model.video.trim() : '';
+    card.className = `gallery-card card-reveal${video ? ' has-video' : ' no-video'}${delayClass}`;
+
+    if (video) {
+      card.tabIndex = 0;
+      card.dataset.video = video;
+      card.setAttribute('role', 'button');
+      card.setAttribute('title', 'Click para ver el video');
+      card.setAttribute('aria-label', `Reproducir video de ${model.name || 'modelo'}`);
+    }
+
+    const imageWrap = document.createElement('div');
+    imageWrap.className = 'gallery-img-wrap';
+
+    const image = document.createElement('img');
+    image.className = 'gallery-image';
+    image.src = model.image || '';
+    image.alt = model.alt || model.name || 'Modelo PetPop';
+
+    const info = document.createElement('div');
+    info.className = 'gallery-info';
+
+    const name = document.createElement('span');
+    name.className = 'gallery-name';
+    name.textContent = model.name || 'Modelo PetPop';
+
+    if (video) {
+      const hint = document.createElement('span');
+      hint.className = 'gallery-video-hint';
+      hint.setAttribute('aria-hidden', 'true');
+      hint.textContent = 'Click para ver video ▶';
+      imageWrap.appendChild(hint);
+    }
+
+    imageWrap.appendChild(image);
+    info.appendChild(name);
+    card.append(imageWrap, info);
+    bindGalleryCard(card);
+
+    return card;
+  }
+
+  function createGalleryDot(index) {
+    const dot = document.createElement('button');
+    dot.className = `dot${index === 0 ? ' active' : ''}`;
+    dot.type = 'button';
+    dot.dataset.index = String(index);
+    dot.setAttribute('aria-label', `Ver modelo ${index + 1}`);
+    return dot;
+  }
+
+  function goToGalleryModel(index) {
+    if (!galleryGrid || !galleryCards || galleryCards.length === 0) return;
+
+    currentGallery = index;
+    const firstCard = galleryCards[0];
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.offsetWidth + 24; // gap = 24px
+    galleryGrid.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+    galleryDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  }
+
+  function bindGalleryDots() {
+    galleryDots.forEach((dot, index) => dot.addEventListener('click', () => {
+      clearInterval(galleryAutoPlay);
+      goToGalleryModel(index);
+      startGalleryAutoPlay();
+    }));
+  }
+
+  function startGalleryAutoPlay() {
+    if (!galleryGrid || !galleryCards || galleryCards.length === 0) return;
+
+    clearInterval(galleryAutoPlay);
+    galleryAutoPlay = setInterval(() => {
+      goToGalleryModel((currentGallery + 1) % galleryCards.length);
+    }, 4500);
+  }
+
+  function renderGalleryModels(models) {
+    if (!galleryGrid || !galleryDotsWrap) return;
+
+    galleryGrid.innerHTML = '';
+    galleryDotsWrap.innerHTML = '';
+    models.forEach((model, index) => {
+      const card = createGalleryCard(model, index);
+      galleryGrid.appendChild(card);
+      galleryDotsWrap.appendChild(createGalleryDot(index));
+      revealObserver.observe(card);
+    });
+
+    galleryCards = Array.from(galleryGrid.querySelectorAll('.gallery-card'));
+    galleryDots = Array.from(galleryDotsWrap.querySelectorAll('.dot'));
+  }
+
+  async function loadGalleryModels() {
+    if (!galleryGrid || !galleryDotsWrap) return;
+
+    try {
+      const response = await fetch('models.json');
+      if (!response.ok) throw new Error('No se pudo cargar models.json');
+
+      const models = await response.json();
+      if (!Array.isArray(models) || models.length === 0) return;
+
+      renderGalleryModels(models);
+      bindGalleryDots();
+      goToGalleryModel(0);
+      startGalleryAutoPlay();
+    } catch (error) {
+      console.error('Error cargando modelos:', error);
+      galleryGrid.innerHTML = '<p class="section-subtitle">No se pudieron cargar los modelos por el momento.</p>';
+    }
+  }
+
+  if (galleryGrid) {
+    galleryGrid.addEventListener('scroll', () => {
+      if (!galleryCards || galleryCards.length === 0) return;
+
+      const firstCard = galleryCards[0];
+      if (!firstCard) return;
+
+      const cardWidth = firstCard.offsetWidth + 24;
+      const index = Math.max(0, Math.min(galleryCards.length - 1, Math.round(galleryGrid.scrollLeft / cardWidth)));
+      galleryDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+      currentGallery = index;
+    }, { passive: true });
+  }
 
   if (galleryModalClose) galleryModalClose.addEventListener('click', closeGalleryVideo);
   if (galleryModalBack) galleryModalBack.addEventListener('click', closeGalleryVideo);
@@ -433,6 +648,8 @@ document.addEventListener('DOMContentLoaded', () => {
       closeGalleryVideo();
     }
   });
+
+  loadGalleryModels();
 
   /* =============================================
      9. PRODUCT CARD HOVER SPARKLE
