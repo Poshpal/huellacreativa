@@ -989,6 +989,7 @@ input, textarea, select { font-family: inherit; }
   text-align: center;
 }
 .gallery-name { font-family: var(--font-display); font-size: 1.1rem; color: var(--dark); }
+.gallery-description { font-size: .86rem; color: var(--gray); line-height: 1.4; }
 .gallery-breed { font-size: .82rem; color: var(--gray); font-weight: 600; }
 
 .gallery-dots {
@@ -1053,6 +1054,44 @@ input, textarea, select { font-family: inherit; }
   transition: transform var(--transition);
 }
 .testimonial-card:hover { transform: translateY(-4px); }
+.test-image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 1rem;
+  border-radius: calc(var(--radius) - 8px);
+  overflow: hidden;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonials-cta {
+  text-align: center;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,.25);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+.testimonials-cta p {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+.test-image {
+  max-width: 80%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain; 
+  object-position: center;
+}
 .test-stars { font-size: 1.1rem; margin-bottom: .75rem; }
 .testimonial-card p {
   font-size: .95rem;
@@ -1063,9 +1102,11 @@ input, textarea, select { font-family: inherit; }
 }
 .test-author {
   display: flex;
-  align-items: center;
-  gap: .75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .25rem;
 }
+.test-place { font-size: .78rem; color: rgba(255,255,255,.7); }
 .test-avatar {
   width: 40px; height: 40px;
   background: var(--accent);

@@ -2,16 +2,33 @@
   {
     "rating": 5,
     "message": "Ya me llegó, está muy bonito, muchas gracias por recrear a mi Baldito, ahora siempre llevaré un pedacito de él conmigo",
-    "pet": "Mamá de Baldo 🐈"
+    "pet": "Mamá de Baldo 🐈",
+    "image": "images/perrito3-caja.png",
+    "alt": "PetPop de Baldo - Perro Schnauzer",
+    "place": "📍 Las Margaritas, Chiapas"
   },
   {
     "rating": 5,
     "message": "Hace poco más de 1 año perdí a Chispa, el ser no humano que más he amado en la vida y su partida dejó un gran vacío 🥹. Pero hoy, gracias a que Huella Creativa capturó su mirada y su escencia en un PetPop, puedo tenerla junto a mi por siempre!!!",
-    "pet": "Papá de Chispa 🐕"
+    "pet": "Papá de Chispa 🐕",
+    "image": "images/perrito4-caja.png",
+    "alt": "PetPop de Chispa - Perro Poodle",
+    "place": "📍 Comitán de Domínguez, Chiapas"
   },
   {
     "rating": 5,
     "message": "Excelente servicio, calidad 10/10",
-    "pet": "Mamá de Baxter🐕"
+    "pet": "Mamá de Baxter🐕",
+    "image": "images/perrito5-caja.png",
+    "alt": "PetPop de Baxter - Perro Pitbull",
+    "place": "📍 Seybaplaya, Campeche"
+  },
+  {
+    "rating": 5,
+    "message": "Panda vive lejos de mí, pero al ver su nombre en la caja, abrirla y examinar el diseño y su imagen cazando un colibrí, me hizo recordar sus travesuras. Cuando tomé entre mis manos a Doxito, fue como estar llenándome de sus pelos. Sencillamente, fantástico y emocionante",
+    "pet": "Mamá de Panda🐕",
+    "image": "images/gatito3-caja.png",
+    "alt": "PetPop de Panda - Gato",
+    "place": "📍 Tuxtla Gutiérrez, Chiapas"
   }
 ]

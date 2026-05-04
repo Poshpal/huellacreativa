@@ -3,6 +3,7 @@
     "name": "🐱 Perrito 1",
     "image": "images/perrito.png",
     "alt": "PetPop de Shivu - Perro Beagle",
+    "description": "Tipo Beagle",
     "video": "videos/perrito1.mp4"
   },
   {
@@ -21,21 +22,25 @@
     "name": "🐕 Perrito 2",
     "image": "images/perro.png",
     "alt": "PetPop de Max - Perro Labrador",
+    "description": "Tipo Labrador o Golden Retriever",
     "video": "videos/perrito2.mp4"
   },
   {
     "name": "🐱 Perrito 3",
     "image": "images/perrito3.png",
-    "alt": "PetPop de Baldo - Perro Schnauzer"  
+    "alt": "PetPop de Baldo - Perro Schnauzer",
+    "description": "Tipo Schnauzer"  
   },
   {
     "name": "🐱 Perrito 4",
     "image": "images/perrito4.png",
-    "alt": "PetPop de Chispa - Perro Poodle"  
+    "alt": "PetPop de Chispa - Perro Poodle",
+    "description": "Tipo Poodle"  
   },
   {
     "name": "🐱 Perrito 5",
     "image": "images/perrito5.png",
-    "alt": "PetPop de Baxter - Perro Pitbull"  
+    "alt": "PetPop de Baxter - Perro Pitbull",
+    "description": "Tipo Pitbull"  
   }
 ]

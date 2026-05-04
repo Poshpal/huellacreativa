@@ -196,6 +196,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'testimonial-card';
 
+    if (testimonial.image) {
+      const imageWrap = document.createElement('div');
+      imageWrap.className = 'test-image-wrap';
+
+      const image = document.createElement('img');
+      image.className = 'test-image';
+      image.src = testimonial.image;
+      image.alt = testimonial.alt || `Imagen del testimonio de ${testimonial.pet || 'cliente'}`;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+
+      imageWrap.appendChild(image);
+      card.appendChild(imageWrap);
+    }
+
     const stars = document.createElement('div');
     stars.className = 'test-stars';
     const rating = Math.max(1, Math.min(5, Number(testimonial.rating) || 5));
@@ -206,7 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pet = document.createElement('div');
     pet.className = 'test-author';
-    pet.textContent = testimonial.pet || '';
+    const petName = document.createElement('strong');
+    petName.textContent = testimonial.pet || '';
+    const place = document.createElement('span');
+    place.className = 'test-place';
+    place.textContent = testimonial.place || '';
+    pet.append(petName, place);
 
     card.append(stars, message, pet);
 
@@ -537,6 +557,10 @@ document.addEventListener('DOMContentLoaded', () => {
     name.className = 'gallery-name';
     name.textContent = model.name || 'Modelo PetPop';
 
+    const description = document.createElement('span');
+    description.className = 'gallery-description';
+    description.textContent = model.description || '';
+
     if (video) {
       const hint = document.createElement('span');
       hint.className = 'gallery-video-hint';
@@ -547,6 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     imageWrap.appendChild(image);
     info.appendChild(name);
+    if (model.description) info.appendChild(description);
     card.append(imageWrap, info);
     bindGalleryCard(card);
 
