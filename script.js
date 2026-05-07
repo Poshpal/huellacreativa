@@ -492,6 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
      8. MODELOS DISPONIBLES DESDE JSON
   ============================================= */
   const galleryGrid = document.getElementById('galleryGrid');
+  const galleryTabsWrap = document.getElementById('galleryTabs');
   const galleryDotsWrap = document.getElementById('galleryDots');
   const galleryVideoModal = document.getElementById('galleryVideoModal');
   const galleryVideoEl    = document.getElementById('galleryVideoModalVideo');
@@ -499,6 +500,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryModalBack  = document.querySelector('.gallery-video-modal-backdrop');
   let galleryCards = [];
   let galleryDots = [];
+  let galleryModels = [];
+  let currentGalleryType = 'Todos';
   let currentGallery = 0;
   let galleryAutoPlay;
 
@@ -621,6 +624,67 @@ document.addEventListener('DOMContentLoaded', () => {
     return dot;
   }
 
+  function normalizeGalleryType(type) {
+    const value = String(type || '').trim();
+    return value || 'Otros';
+  }
+
+  function getGalleryTypeIcon(type) {
+    const value = normalizeGalleryType(type).toLowerCase();
+    if (value.includes('perro')) return '🐕';
+    if (value.includes('gato')) return '🐱';
+    return '🐾';
+  }
+
+  function getGalleryTypes(models) {
+    return [...new Set(models.map(model => normalizeGalleryType(model.type)))];
+  }
+
+  function createGalleryTab(type, isActive) {
+    const tab = document.createElement('button');
+    tab.className = `gallery-tab${isActive ? ' is-active' : ''}`;
+    tab.type = 'button';
+    tab.dataset.type = type;
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-selected', String(isActive));
+    tab.textContent = type === 'Todos' ? '🐾 Todos' : `${getGalleryTypeIcon(type)} ${type}`;
+    return tab;
+  }
+
+  function setActiveGalleryTab(type) {
+    if (!galleryTabsWrap) return;
+    galleryTabsWrap.querySelectorAll('.gallery-tab').forEach(tab => {
+      const isActive = tab.dataset.type === type;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+  }
+
+  function renderGalleryTabs(models) {
+    if (!galleryTabsWrap) return;
+
+    const types = ['Todos', ...getGalleryTypes(models)];
+    galleryTabsWrap.innerHTML = '';
+    types.forEach(type => {
+      const tab = createGalleryTab(type, type === currentGalleryType);
+      tab.addEventListener('click', () => {
+        currentGalleryType = type;
+        clearInterval(galleryAutoPlay);
+        setActiveGalleryTab(type);
+        renderGalleryModels(getFilteredGalleryModels());
+        bindGalleryDots();
+        goToGalleryModel(0);
+        startGalleryAutoPlay();
+      });
+      galleryTabsWrap.appendChild(tab);
+    });
+  }
+
+  function getFilteredGalleryModels() {
+    if (currentGalleryType === 'Todos') return galleryModels;
+    return galleryModels.filter(model => normalizeGalleryType(model.type) === currentGalleryType);
+  }
+
   function goToGalleryModel(index) {
     if (!galleryGrid || !galleryCards || galleryCards.length === 0) return;
 
@@ -653,6 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderGalleryModels(models) {
     if (!galleryGrid || !galleryDotsWrap) return;
 
+    currentGallery = 0;
     galleryGrid.innerHTML = '';
     galleryDotsWrap.innerHTML = '';
     models.forEach((model, index) => {
@@ -676,7 +741,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const models = await response.json();
       if (!Array.isArray(models) || models.length === 0) return;
 
-      renderGalleryModels(models);
+      galleryModels = models;
+      currentGalleryType = 'Todos';
+      renderGalleryTabs(models);
+      renderGalleryModels(getFilteredGalleryModels());
       bindGalleryDots();
       goToGalleryModel(0);
       startGalleryAutoPlay();

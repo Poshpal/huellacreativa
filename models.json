@@ -4,49 +4,57 @@
     "image": "images/perrito.png",
     "alt": "PetPop de Shivu - Perro Beagle",
     "description": "Tipo Beagle",
-    "video": "videos/perrito1.mp4"
+    "video": "videos/perrito1.mp4",
+    "type": "Perro"
   },
   {
-    "name": "🐕 Gatito 1",
+    "name": "🐱 Gatito 1",
     "image": "images/garfield.png",
     "alt": "PetPop de Garfield - Gato naranja",
-    "video": "videos/gatito1.mp4"
+    "video": "videos/gatito1.mp4",
+    "type": "Gato"
   },
   {
     "name": "🐱 Gatito 2",
     "image": "images/tom.png",
     "alt": "PetPop de Tom - Gato naranja",
-    "video": "videos/gatito2.mp4"
+    "video": "videos/gatito2.mp4",
+    "type": "Gato"
   },
   {
     "name": "🐕 Perrito 2",
     "image": "images/perro.png",
     "alt": "PetPop de Max - Perro Labrador",
     "description": "Tipo Labrador o Golden Retriever",
-    "video": "videos/perrito2.mp4"
+    "video": "videos/perrito2.mp4",
+    "type": "Perro"
   },
   {
     "name": "🐕 Perrito 3",
     "image": "images/perrito3.png",
     "alt": "PetPop de Baldo - Perro Schnauzer",
-    "description": "Tipo Schnauzer"  
+    "description": "Tipo Schnauzer"  ,
+    "type": "Perro"
   },
   {
     "name": "🐕 Perrito 4",
     "image": "images/perrito4.png",
     "alt": "PetPop de Chispa - Perro Poodle",
-    "description": "Tipo Poodle"  
+    "description": "Tipo Poodle"  ,
+    "type": "Perro"
   },
   {
     "name": "🐕 Perrito 5",
     "image": "images/perrito5.png",
     "alt": "PetPop de Baxter - Perro Pitbull",
-    "description": "Tipo Pitbull"  
+    "description": "Tipo Pitbull",  
+    "type": "Perro"
   },
   {
     "name": "🐕 Perrito 6",
     "image": "images/perrito6.png",
     "alt": "PetPop de Moka - Perro",
-    "description": "Tipo Papillón/Chihuahua"  
+    "description": "Tipo Papillón/Chihuahua",
+    "type": "Perro"
   }
 ]

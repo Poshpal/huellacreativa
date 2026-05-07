@@ -809,6 +809,38 @@ input, textarea, select { font-family: inherit; }
 /* ---- GALLERY ---- */
 .gallery-section { padding: 100px 0 80px; background: var(--light-gray); }
 
+.gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin: -1rem 0 2rem;
+}
+.gallery-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border: 2px solid rgba(255,107,53,.16);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--dark-2);
+  padding: .65rem 1.15rem;
+  font-weight: 900;
+  box-shadow: 0 8px 22px rgba(45,45,45,.08);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+}
+.gallery-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(45,45,45,.12);
+  border-color: rgba(255,107,53,.34);
+}
+.gallery-tab.is-active {
+  background: var(--gradient-hero);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 12px 30px rgba(255,107,53,.28);
+}
+
 .gallery-grid {
   display: flex;
   gap: 1.5rem;
@@ -1807,6 +1839,7 @@ input, textarea, select { font-family: inherit; }
   .step-arrow { display: none; }
   .form-row { grid-template-columns: 1fr; }
   .footer-content { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 24px 1.5rem; }
+  .gallery-tabs { margin-top: -.5rem; }
   .gallery-card { flex: 0 0 280px; }
   .testimonial-card { flex: 0 0 300px; }
   .testimonials-cta {
@@ -1834,6 +1867,19 @@ input, textarea, select { font-family: inherit; }
 
 @media (max-width: 480px) {
   .steps { grid-template-columns: 1fr; }
+  .gallery-tabs {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: .15rem .1rem .7rem;
+    scrollbar-width: none;
+  }
+  .gallery-tabs::-webkit-scrollbar { display: none; }
+  .gallery-tab {
+    flex: 0 0 auto;
+    padding: .58rem 1rem;
+    font-size: .9rem;
+  }
   .gallery-card { flex: 0 0 260px; }
   .product-grid { grid-template-columns: 1fr; }
   .testimonial-card {
