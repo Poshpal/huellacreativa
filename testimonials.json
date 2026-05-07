@@ -30,5 +30,13 @@
     "image": "images/gatito3-caja.png",
     "alt": "PetPop de Panda - Gato",
     "place": "📍 Tuxtla Gutiérrez, Chiapas"
+  },
+  {
+    "rating": 5,
+    "message": "Todas las mascotas son especiales, pero sin duda la primera es la que más te marca, muchas gracias por ayudarme a retratar a uno de los más grandes amores de mi vida, mi pequeña peluda❤️.",
+    "pet": "Mamá de Moka🐕",
+    "image": "images/perrito6-caja.png",
+    "alt": "PetPop de Moka - Perro",
+    "place": "📍 San Francisco de Campeche, Campeche"
   }
 ]
