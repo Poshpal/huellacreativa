@@ -192,6 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let current  = 0;
   let autoPlay;
 
+  function getTestimonialEmoji(pet) {
+    const value = String(pet || '');
+    if (value.includes('🐈') || value.toLowerCase().includes('gato')) return '🐈';
+    if (value.includes('🐕') || value.toLowerCase().includes('perro')) return '🐕';
+    return '🐾';
+  }
+
   function createTestimonialCard(testimonial) {
     const card = document.createElement('div');
     card.className = 'testimonial-card';
@@ -211,24 +218,51 @@ document.addEventListener('DOMContentLoaded', () => {
       card.appendChild(imageWrap);
     }
 
+    const rating = Math.max(1, Math.min(5, Number(testimonial.rating) || 5));
+    const body = document.createElement('div');
+    body.className = 'test-card-body';
+
+    const top = document.createElement('div');
+    top.className = 'test-card-top';
+
     const stars = document.createElement('div');
     stars.className = 'test-stars';
-    const rating = Math.max(1, Math.min(5, Number(testimonial.rating) || 5));
     stars.textContent = '⭐'.repeat(rating);
+    stars.setAttribute('aria-label', `${rating} de 5 estrellas`);
+
+    const ratingPill = document.createElement('span');
+    ratingPill.className = 'test-rating-pill';
+    ratingPill.textContent = `${rating}/5`;
+
+    top.append(stars, ratingPill);
+
+    const quote = document.createElement('span');
+    quote.className = 'test-quote';
+    quote.setAttribute('aria-hidden', 'true');
+    quote.textContent = '“';
 
     const message = document.createElement('p');
-    message.textContent = `"${testimonial.message || ''}"`;
+    message.className = 'test-message';
+    message.textContent = testimonial.message || '';
 
     const pet = document.createElement('div');
     pet.className = 'test-author';
+    const avatar = document.createElement('div');
+    avatar.className = 'test-avatar';
+    avatar.textContent = getTestimonialEmoji(testimonial.pet);
+
+    const authorCopy = document.createElement('div');
+    authorCopy.className = 'test-author-copy';
     const petName = document.createElement('strong');
     petName.textContent = testimonial.pet || '';
     const place = document.createElement('span');
     place.className = 'test-place';
     place.textContent = testimonial.place || '';
-    pet.append(petName, place);
+    authorCopy.append(petName, place);
+    pet.append(avatar, authorCopy);
 
-    card.append(stars, message, pet);
+    body.append(top, quote, message, pet);
+    card.appendChild(body);
 
     return card;
   }
