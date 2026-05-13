@@ -392,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const petActivity = document.getElementById('petActivity').value.trim();
       const message   = document.getElementById('message').value.trim();
       const accept    = document.getElementById('accept').value.trim();
+      const colorBox  = document.getElementById('colorBox').value;
 
       const petTypeLabels = { gato: '🐱 Gato', perro: '🐕 Perro', otro: '🐾 Otro' };
 
@@ -399,14 +400,18 @@ document.addEventListener('DOMContentLoaded', () => {
         `¡Hola Huella Creativa! 🐾 Quiero pedir un PetPop personalizado:\n\n` +
         `👤 Nombre: ${ownerName}\n` +
         `📱 Teléfono: ${phone}\n` +
+        `--------------------------------\n` +
         `🐾 Mascota: ${petName}\n` +
         `🐾 Tipo: ${petTypeLabels[petType] || petType}\n` +
         (petBreed ? `🔖 Raza: ${petBreed}\n` : '') +
         (petAge   ? `📅 Edad: ${petAge}\n` : '') +
         (petNicknames ? `📝 Apodos: ${petNicknames}\n` : '') +
         (petActivity ? `🏃 Actividad favorita: ${petActivity}\n` : '') +
-        (message  ? `\n💬 Mensaje/Datos extra:\n${message}` : '') +
-        (accept ? `\n💰 Acepto dar $100 de anticipo para que agenden mi pedido` : '')
+        `--------------------------------\n` +
+        (colorBox ? `🎨 Color de caja: ${colorBox}\n` : '') +
+        (message  ? `💬 Mensaje/Datos extra: ${message}\n` : '') +
+        `--------------------------------\n` +
+        (accept ? `💰 Acepto dar $100 de anticipo para que agenden mi pedido` : '')
       );
 
       // Simular un pequeño retraso visual (opcional)
@@ -450,6 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const petNicknames = document.getElementById('petNicknames');
     const petActivity = document.getElementById('petActivity');
     const accept    = document.getElementById('accept');
+    const colorBox  = document.getElementById('colorBox');
 
     if (!ownerName.value.trim()) {
       showError(ownerName, 'Por favor ingresa tu nombre.');
@@ -484,6 +490,11 @@ document.addEventListener('DOMContentLoaded', () => {
       valid = false;
     } else {
       accept.style.outline = '';
+    }
+
+    if (!colorBox.value) {
+      showError(colorBox, 'Selecciona el color de la caja.');
+      valid = false;
     }
     return valid;
   }

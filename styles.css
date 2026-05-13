@@ -2067,3 +2067,17 @@ input, textarea, select { font-family: inherit; }
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0,0,0,.05);
 }
+
+.color-box-image {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+  padding: 1.2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .color-box-image {
+    width: 100%;
+  }
+}
