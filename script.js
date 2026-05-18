@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const testimonials = await response.json();
       if (!Array.isArray(testimonials) || testimonials.length === 0) return;
 
-      renderTestimonials(testimonials);
+      renderTestimonials([...testimonials].reverse());
       bindTestimonialDots();
       goTo(0);
       startAutoPlay();
