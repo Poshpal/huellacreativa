@@ -869,7 +869,7 @@ input, textarea, select { font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem;
+  padding: 2rem;
   overflow: hidden;
   position: relative;
 }
@@ -878,6 +878,8 @@ input, textarea, select { font-family: inherit; }
   height: 100%;
   object-fit: contain;     /* evita recortes: se muestra completa */
   object-position: center; /* centrada dentro del recuadro */
+  transform: scale(1.28);
+  transform-origin: center;
 }
 
 /* Hint / tooltip para indicar que el card reproduce un video */
@@ -1897,7 +1899,7 @@ input, textarea, select { font-family: inherit; }
   /* Galería móvil: centrar y mostrar imágenes completas */
   .gallery-img-wrap {
     height: 240px;
-    padding: 1.5rem;
+    padding: 2rem;
   }
   .gallery-img-wrap .gallery-image {
     object-fit: contain;

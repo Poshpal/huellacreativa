@@ -38,5 +38,13 @@
     "image": "images/perrito6-caja.png",
     "alt": "PetPop de Moka - Perro",
     "place": "📍 San Francisco de Campeche, Campeche"
+  },
+  {
+    "rating": 5,
+    "message": "Recomiendo ampliamente por su atención, calidad y la elaboración detallada de las mascotas.",
+    "pet": "Papá de Katy🐕",
+    "image": "images/perrito8-caja.png",
+    "alt": "PetPop de Katy - Perro",
+    "place": "📍 Seybaplaya, Campeche"
   }
 ]

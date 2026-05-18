@@ -56,5 +56,11 @@
     "alt": "PetPop de Moka - Perro",
     "description": "Tipo Papillón/Chihuahua",
     "type": "Perro"
+  },
+  {
+    "name": "🐕 Perrito 7",
+    "image": "images/perrito7.png",
+    "alt": "PetPop de Canelo - Perro",
+    "type": "Perro"
   }
 ]
