@@ -45,6 +45,14 @@
     "pet": "Papá de Katy🐕",
     "image": "images/perrito8-caja.png",
     "alt": "PetPop de Katy - Perro",
-    "place": "📍 Seybaplaya, Campeche"
+    "place": "📍 Ciudad del Carmen, Campeche"
+  },
+  {
+    "rating": 5,
+    "message": "Gracias Huella Creativa por diseñar al travieso Canelo y dejarme un recuerdo para siempre de el 💗",
+    "pet": "Mamá de Canelo🐕",
+    "image": "images/perrito7-caja.png",
+    "alt": "PetPop de Canelo - Perro",
+    "place": "📍 Ciudad del Carmen, Campeche"
   }
 ]
